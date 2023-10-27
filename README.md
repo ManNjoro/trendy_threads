@@ -1,0 +1,2 @@
+# TRENDY THREADS
+This directory contains of both frontend and backend.It is an e-commerce based web application focusing on clothing. The frontend is done with React framework and the backend with Flask python framework.
