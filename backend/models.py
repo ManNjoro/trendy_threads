@@ -8,13 +8,18 @@ from flask_login import UserMixin
 from pytz import timezone
 from sqlalchemy.sql import func
 from . import db
+from uuid import uuid4
 local_timezone = timezone('Africa/Nairobi')
+
+def get_uuid():
+    return uuid4().hex
+
 
 class User(db.Model, UserMixin):
     """
     A user object
     """
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(11),unique=True, primary_key=True, default=get_uuid)
     name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))

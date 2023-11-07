@@ -1,20 +1,24 @@
 import React, { useContext } from "react";
 import { getProducts } from "../api";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/Context";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export function productDetailLoader({ params }) {
   return getProducts(params.id);
 }
 
 export default function ProductDetail() {
-  const product = useLoaderData();
+  const product = useLoaderData()
+  const location = useLocation()
   const {addToCart, cartItems} = useContext(ShopContext)
   const url = "http://127.0.0.1:5000/api/products";
+  const search = location.state?.search || ""
+  const category = location.state?.category || "all"
   return (
     <div className="product-detail-container">
-      <Link to={`..`} relative="path" className="back-btn">
-        &larr; <span>Back to products</span>
+      <Link to={`..${search}`} relative="path" className="back-btn">
+        <FaArrowLeftLong /> <span>Back to {category} products</span>
       </Link>
 
       <div className="product-card">
@@ -24,9 +28,6 @@ export default function ProductDetail() {
           className="product-detail-img"
         />
         <div className="product-details-only">
-          <i className={`product-type ${product.category} selected`}>
-            {product.category}
-          </i>
           <h2>{product.name}</h2>
           <p className="product-price">
             KSH {product.price}

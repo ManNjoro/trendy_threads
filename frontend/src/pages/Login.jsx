@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, redirect, useActionData, useLoaderData, useNavigation } from "react-router-dom";
 import { loginUser } from "../api";
 
@@ -13,8 +13,8 @@ export async function action({ request }) {
   const password = formData.get('password')
   const data = await loginUser({ email, password})
   if (data.category == 'success') {
-    localStorage.setItem("loggedin", true)
-    return redirect(`/?message=${data.message}`)
+    localStorage.setItem("isAuthenticated", data.isAuthenticated)
+    return redirect(`/?message=${data.message}${data.user.name}`)
   }
   else 
     return data.message

@@ -13,14 +13,18 @@ import Products, { productLoader } from "./pages/Products";
 import Cart, { cartLoader } from "./pages/Cart";
 import Error from "./components/Error";
 import { requireAuth } from "./utils";
-import Logout from "./components/Logout";
 import ProductDetail, { productDetailLoader } from "./pages/ProductDetail";
 import { ShopContextProvider } from "./context/Context";
+import NotFound from "./pages/NotFound";
+import PayPal from "./pages/PayPal";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<Home />} loader={homeLoader} />
+      <Route index element={<Home />} loader={async () => {
+        await requireAuth()
+        return null
+      }} />
       <Route
         path="products"
         element={<Products />}
@@ -31,20 +35,24 @@ const router = createBrowserRouter(
         path="cart"
         element={<Cart />}
         loader={cartLoader}
+        errorElement={<Error />}
       />
       <Route
         path="login"
         element={<Login />}
         loader={loginLoader}
         action={loginAction}
+        errorElement={<Error />}
       />
-      <Route path="signup" element={<Signup />} action={signupAction} />
-      <Route path="logout" element={<Logout />} />
+      <Route path="signup" element={<Signup />} action={signupAction} errorElement={<Error />} />
       <Route
         path="products/:id"
         element={<ProductDetail />}
         loader={productDetailLoader}
+        errorElement={<Error />}
       />
+      <Route path="/cart/payment" element={<PayPal />} errorElement={<Error />}/>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

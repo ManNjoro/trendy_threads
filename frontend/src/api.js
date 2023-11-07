@@ -22,12 +22,11 @@ export async function createUser(creds) {
   return data;
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+//   }
 
 export async function loginUser(creds) {
-    await  sleep(1000)
   const res = await fetch(`${url}/login`, {
     method: "post",
     headers: {
@@ -64,3 +63,25 @@ export async function getProducts(id) {
   const data = await res.json()
   return data.products
 }
+
+export async function logout() { 
+  const res = await fetch(`${url}/logout`)
+  
+  if (!res.ok) {
+      // eslint-disable-next-line
+      throw {
+          message: "Failed to fetch products",
+          statusText: res.statusText,
+          status: res.status
+      }
+  }
+  const data = await res.json()
+  return data
+}
+
+export async function getUser() {
+  const res = await fetch(`${url}/is_authenticated`)
+  const data = await res.json()
+  return data
+}
+

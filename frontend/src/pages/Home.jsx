@@ -5,6 +5,10 @@ export async function loader({ request }) {
   return new URL(request.url).searchParams.get("message");
 }
 
+// export async function user() {
+//   return await getUser()
+// }
+
 export default function Home() {
   const message = useLoaderData();
   return (

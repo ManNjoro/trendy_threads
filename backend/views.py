@@ -10,7 +10,7 @@ from backend import db
 
 views = Blueprint('views',__name__, url_prefix='/')
 
-CATEGORIES = ['shirt', 'jacket', 'short', 'trouser']
+CATEGORIES = ['shirt', 'jacket', 'short', 'trouser', 'lingerie', 'dress']
 GENDERS = ['male', 'female']
 SIZES = ['XS', 'S', 'M', 'L', 'XL']
 

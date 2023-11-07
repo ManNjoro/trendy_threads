@@ -5,6 +5,10 @@ body {
 body .container {
   max-width: 1000px;
   margin: 30px auto;
+  padding-top: 60px;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  --bs-gutter-x: 5px;
 }
 
 .nav-container {
@@ -15,6 +19,9 @@ body .container {
   align-items: center;
   height: 70px;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 a {
@@ -22,16 +29,63 @@ a {
   color: black;
 }
 
-.nav-links {
+.nav-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  padding: 10px;
+}
+
+.nav-sidebar {
+  position: fixed;
+  top: 70px;
+  left: -80%;
+  width: 80%;
+  height: 100vh;
+  background-color: #333;
+  transition: left 0.3s; /* Add a smooth transition effect for left position */
+  overflow-y: auto; /* Enable vertical scrolling if the content exceeds the screen height */
+  z-index: 1;
+}
+
+
+
+.nav-sidebar.open {
+  left: 0; /* Slide in the sidebar when it's open */
+  z-index: 2;
+}
+.nav-links {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+/* .nav-links {
+  display: none;
   flex-direction: row;
   gap: 15px;
   font-size: 18px;
   font-weight: 300;
   justify-content: space-around;
-  margin-right: 10px;
+  margin-right: 30px;
+} */
+.nav-vertical-links {
+  display: flex;
+  flex-direction: column;
+  background-color: #CCCCCC;
+  /* height: 100vh; */
+  width: 200px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
+.menubar {
+  width: 30px;
+  font-size: x-large;
+  cursor: pointer;
+  margin-right: 10px;
+}
 div.nav-container a.logo {
   background: url("./assets/images/logo.png") no-repeat;
   background-size: contain;
@@ -55,6 +109,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 
 .social-icons {
@@ -139,6 +194,7 @@ footer {
   position: relative;
   --bs-card-border-width: none;
   box-shadow: 0 0 15px beige;
+  z-index: 1;
 }
 
 .product-img {
@@ -148,13 +204,10 @@ footer {
   padding-bottom: 5px;
 }
 .cards-list{
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: auto;
-  padding-left: 10px;
-  /* box-shadow: 0 1px 0px; */
-  /* padding-bottom: 5px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+  gap: 5px;
 }
 .card-stats {
   display: flex;
@@ -348,6 +401,102 @@ div.link-btns {
   cursor: pointer;
 }
 
+/* product category filters */
+.product-category {
+  height: 34px;
+  padding: 6px 26px;
+  font-style: normal;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  background-color: #FFEAD0;
+  color: #4D4D4D;
+  transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-category:hover {
+  color: #FFEAD0;
+}
+
+.product-category:focus {
+  outline: none;
+}
+
+.product-category.selected {
+  color: #FFEAD0;
+}
+
+.product-category.short:hover, .product-category.short.selected {
+  background-color: #E17654;
+}
+
+.product-category.shirt:hover, .product-category.shirt.selected {
+  background-color: #115E59;
+}
+
+.product-category.trouser:hover, .product-category.trouser.selected {
+  background-color: #161616;
+}
+.product-category.jacket:hover, .product-category.jacket.selected {
+  background-color: #0a7ce7;
+}
+/* #42f5f2 */
+.product-category.lingerie:hover, .product-category.lingerie.selected {
+  background-color: #f54284;
+}
+.product-category.dress:hover, .product-category.dress.selected {
+  background-color: #42f5f2;
+}
+.product-category.male:hover, .product-category.male.selected {
+  background-color: #f02828;
+}
+
+.product-category.female:hover, .product-category.female.selected {
+  background-color: #35e026;
+}
+
+.product-category.clear-filters, .gender-btns.clear-filters {
+  margin-left: -20px;
+  height: 34px;
+  padding: 6px 26px;
+  font-style: normal;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  text-decoration: underline;
+  background-color: transparent;
+  color: #4D4D4D;
+}
+
+/* i[class*='product-category-'] {
+  padding: 7px 14px;
+} */
+
+.category-filter-buttons, .gender-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gender-btns {
+  padding-bottom: 10px;
+}
+
+.not-found-container {
+  padding-inline: 26px;
+}
+
+.not-found-container .link-button {
+  width: 100%;
+  background-color: #161616;
+  color: white;
+}
+
+.logout {
+  border: none;
+  background-color: inherit;
+}
+
 
 /* media queries*/
 @media(min-width:750px) {
@@ -366,6 +515,30 @@ div.link-btns {
     border-radius: 10px;
     margin-top: 15px;
     max-width: 400px;
+  }
+  .cards-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  body .container {
+    max-width: 1000px;
+    margin: 20px auto;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+  }
+  .not-found-container .link-button {
+    width: 50%;
+    background-color: #161616;
+    color: white;
+  }
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: 300;
+    justify-content: space-around;
+    margin-right: 10px;
   }
 }
 
