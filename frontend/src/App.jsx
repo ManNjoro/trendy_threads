@@ -21,10 +21,7 @@ import PayPal from "./pages/PayPal";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<Home />} loader={async () => {
-        await requireAuth()
-        return null
-      }} />
+      <Route index element={<Home />}/>
       <Route
         path="products"
         element={<Products />}
@@ -51,7 +48,7 @@ const router = createBrowserRouter(
         loader={productDetailLoader}
         errorElement={<Error />}
       />
-      <Route path="/cart/payment" element={<PayPal />} errorElement={<Error />}/>
+      <Route path="/cart/payment" element={<PayPal />} errorElement={<Error />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

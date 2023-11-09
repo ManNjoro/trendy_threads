@@ -22,7 +22,7 @@ export default function Products() {
   const genderProducts = genderFilter
     ? displayedProducts.filter((product) => product.gender == genderFilter)
     : displayedProducts;
-  const url = "http://127.0.0.1:5000/api/products";
+  const url = "http://54.164.125.110:5000/api/products";
   const productElements = genderProducts.map((product) => (
     <div className="card" key={product.id}>
       <Link
