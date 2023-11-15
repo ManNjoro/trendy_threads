@@ -1,6 +1,6 @@
 # React + Vite
 Contains all the UI elements including css.
 ### Installation
-- npm install
+`npm install`
 ### Running
-- npm run dev
+`npm run dev`
