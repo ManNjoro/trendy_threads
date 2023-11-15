@@ -12,7 +12,7 @@ export default function ProductDetail() {
   const product = useLoaderData()
   const location = useLocation()
   const {addToCart, cartItems} = useContext(ShopContext)
-  const url = "http://54.164.125.110:5000/api/products";
+  const url = "https://www.mannjoro.tech:5000/api/products";
   const search = location.state?.search || ""
   const category = location.state?.category || "all"
   return (

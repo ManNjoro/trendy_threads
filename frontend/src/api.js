@@ -1,4 +1,4 @@
-const url = "http://54.164.125.110:5000";
+const url = "https://www.mannjoro.tech:5000";
 export async function createUser(creds) {
   console.log(creds);
   const res = await fetch(`${url}/signup`, {

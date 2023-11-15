@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Form, redirect, useActionData, useLoaderData, useNavigation } from "react-router-dom";
 import { loginUser } from "../api";
+import { ShopContext } from "../context/Context";
 
 export async function loginLoader({ request }) {
   return new URL(request.url).searchParams.get('message')
@@ -8,17 +9,21 @@ export async function loginLoader({ request }) {
 
 
 export async function action({ request }) {
+  const {token, loginToken, logoutToken} = useContext(ShopContext);
   const formData = await request.formData()
   const email = formData.get('email')
   const password = formData.get('password')
   const data = await loginUser({ email, password})
   if (data.category == 'success') {
-    localStorage.setItem("isAuthenticated", data.isAuthenticated)
+    // localStorage.setItem("isAuthenticated", data.isAuthenticated)
+    loginToken(data.isAuthenticated)
+    console.log(token);
     return redirect(`/?message=${data.message}${data.user.name}`)
   }
   else 
     return data.message
 }
+
 
 export default function Login() {
   const message = useLoaderData()

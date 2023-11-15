@@ -4,7 +4,7 @@ import { ShopContext } from "../context/Context";
 export default function CartItem(props) {
   const { id, name, price } = props.data;
   const { addToCart, removeFromCart, cartItems, updateCartItemCount } = useContext(ShopContext);
-  const url = "http://54.164.125.110:5000/api/products";
+  const url = "https://www.mannjoro.tech:5000/api/products";
   return (
     <div className="cartItem">
       <img src={`${url}/${id}/image`} />

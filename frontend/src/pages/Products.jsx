@@ -1,28 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
-import logo from "../assets/images/katie-zaferes.png";
 import star from "../assets/images/star.png";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { getProducts } from "../api";
 import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { ShopContext } from "../context/Context";
 
+// Loader function to fetch products
 export function productLoader() {
   return getProducts();
 }
 
+// Products component
 export default function Products() {
   const products = useLoaderData();
   const { addToCart, cartItems } = useContext(ShopContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFilter = searchParams.get("category");
   const genderFilter = searchParams.get("gender");
+
+  // Apply category and gender filters to displayed products
   const displayedProducts = categoryFilter
-    ? products.filter((product) => product.category == categoryFilter)
+    ? products.filter((product) => product.category === categoryFilter)
     : products;
   const genderProducts = genderFilter
-    ? displayedProducts.filter((product) => product.gender == genderFilter)
+    ? displayedProducts.filter((product) => product.gender === genderFilter)
     : displayedProducts;
-  const url = "http://54.164.125.110:5000/api/products";
+
+  const url = "https://www.mannjoro.tech:5000/api/products";
+
+  // Map products to elements for rendering
   const productElements = genderProducts.map((product) => (
     <div className="card" key={product.id}>
       <Link
@@ -33,6 +38,7 @@ export default function Products() {
           gender: genderFilter,
         }}
       >
+        {/* Product image */}
         <img
           src={`${url}/${product.id}/image`}
           alt={product.name}
@@ -40,9 +46,11 @@ export default function Products() {
           type={product.mime_type}
         ></img>
         <div className="card-stats">
+          {/* Star image for product rating */}
           <img src={star} alt="star" className="star"></img>
         </div>
         <section className="product-info">
+          {/* Product name and price */}
           <p>{product.name}</p>
           <p>
             <span className="price">KSH {product.price}</span>
@@ -50,14 +58,15 @@ export default function Products() {
         </section>
       </Link>
       <div className="link-btns">
+        {/* Button to add product to cart */}
         <button className="link-button" onClick={() => addToCart(product.id)}>
-          ADD TO CART{" "}
-          {cartItems[product.id] > 0 && <> ({cartItems[product.id]}) </>}
+          ADD TO CART {cartItems[product.id] > 0 && <> ({cartItems[product.id]}) </>}
         </button>
       </div>
     </div>
   ));
 
+  // Function to handle changes in filters
   function handleFilterChange(key, value) {
     setSearchParams((prevParams) => {
       if (value === null) {
@@ -71,6 +80,7 @@ export default function Products() {
 
   return (
     <section className="card-container">
+      {/* Gender filter buttons */}
       <div className="category-filter-buttons">
         <div className="gender-btns">
           <button
@@ -99,6 +109,8 @@ export default function Products() {
           )}
         </div>
       </div>
+
+      {/* Category filter buttons */}
       <div className="category-filter-buttons">
         {genderFilter && (
           <>
@@ -166,6 +178,7 @@ export default function Products() {
         )}
       </div>
 
+      {/* Display products */}
       <div className="cards-list">
         {products ? productElements : <h1>No products as of now</h1>}
       </div>

@@ -7,3 +7,6 @@ Contains of all api endpoints to be used in the frontend
 - GET - returns a single product
 ###### /api/products/<id>/image
 - GET - returns the image data of a single product
+
+### Installation
+pip install -r requirements.txt

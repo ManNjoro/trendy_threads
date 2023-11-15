@@ -17,6 +17,7 @@ import ProductDetail, { productDetailLoader } from "./pages/ProductDetail";
 import { ShopContextProvider } from "./context/Context";
 import NotFound from "./pages/NotFound";
 import PayPal from "./pages/PayPal";
+import Protected from "./components/Protected";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +25,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />}/>
       <Route
         path="products"
-        element={<Products />}
+        element={<Protected element={<Products />}/>}
         errorElement={<Error />}
         loader={productLoader}
       />
